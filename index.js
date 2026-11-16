@@ -19,6 +19,19 @@ app.get("/", (request, response) => {
     })
 })
 
+app.post("/cadastrar", (request, response) => {
+    const { name, artist, genre, year, duration } = request.body
+    const comandoInsert = "INSERT INTO musics_ronny (name, artist, genre, year, duration) VALUES (?, ?, ?, ?, ?)"
+
+    sql.query(comandoInsert, [name, artist, genre, year, duration], (error) => {
+        if (error) {
+            console.log(error)
+            return
+        }
+        response.status(201).json({ message: "Música cadastrada com sucesso!" })
+    })	
+})
+
 app.listen(3000, () => {
     console.log("O servidô tá ródânu na porta 3000 visse!?")
 })
